@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:16.3-bookworm
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=SuperPassword
+      - POSTGRES_USER=RailsUser
+      - POSTGRES_DB=rails
+  app:
+    build: .
+    volumes:
+      - appdata:/app
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - 8080:3000
+    environment:
+      - DB_PASSWORD=SuperPassword
+      - DB_USER=RailsUser
+      - DB_NAME=rails_production
+      - RAILS_ENV=production
+volumes:
+  dbdata:
+  appdata:
