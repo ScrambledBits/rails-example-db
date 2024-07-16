@@ -12,6 +12,8 @@ RUN bundle install
 COPY blog/ /app/
 COPY entrypoint.sh /entrypoint.sh
 
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+
 EXPOSE 3000
 
 ENTRYPOINT [ "/entrypoint.sh" ]
