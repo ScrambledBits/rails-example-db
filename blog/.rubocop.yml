@@ -1,0 +1,13 @@
+require:
+  - rubocop-capybara
+  - rubocop-factory_bot
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+AllCops:
+    NewCops: enable
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/features/**/*.rb'
+Rails/I18nLocaleTexts:
+  Enabled: false
