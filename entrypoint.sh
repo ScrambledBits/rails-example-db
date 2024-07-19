@@ -2,8 +2,6 @@
 
 set -x
 cd /app
-bundle exec rake db:create
-bundle exec rake db:migrate
-bundle exec rake assets:precompile
+bundle exec rake db:prepare
 
 exec "$@"
