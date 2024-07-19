@@ -12,11 +12,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Docker Login
+      uses: docker/login-action@v3.2.0
+      with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: |
+        set -x
         docker info
         export IMG_NAME="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/rails-example-${GITHUB_REF_NAME}:$(date +%s)"
-        echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${GITHUB_ACTOR,,}" --password-stdin
         docker build . --file Dockerfile --tag $IMG_NAME
         docker push $IMG_NAME
               
