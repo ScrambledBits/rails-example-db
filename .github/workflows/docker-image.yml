@@ -23,6 +23,7 @@ jobs:
         set -x
         docker info
         export IMG_NAME="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/rails-example-${GITHUB_REF_NAME}:$(date +%s)"
-        docker build . --file Dockerfile --tag $IMG_NAME
+        export IMG_NAME_LATEST="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/rails-example-${GITHUB_REF_NAME}:latest"
+        docker build . --file Dockerfile --tag $IMG_NAME --tag $IMG_NAME_LATEST
         docker push $IMG_NAME
-              
+
