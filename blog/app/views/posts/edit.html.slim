@@ -1,0 +1,20 @@
+h4.fw-bold.py-3.mb-4
+  span.text-muted.fw-light
+    |> Home/
+  span.text-muted.fw-light
+    = link_to "Posts", posts_path
+    |> /
+  | Editing Post #{@post.name}
+
+.row.g-4.mb-5
+  .col-10
+    h2 Editing post
+  .col-2.text-end
+    = link_to "Back to post", post_path(@post), class: "mb-4"
+
+.row
+  .col-md-12
+    .card.mb-4
+      .card-header Edit post
+      .card-body
+        = render "form", post: @post

@@ -1,0 +1,4 @@
+= form_tag posts_path, method: :get, class: 'd-flex align-items-center' do
+  i.bx.bx-search.fs-4.lh-0
+  = text_field_tag :search, params[:search], class: 'form-control border-0 shadow-none', placeholder: 'Search...', aria: { label: 'Search...' }
+  = submit_tag '', class: 'd-none'

@@ -1,6 +1,6 @@
 FROM ruby:3.3.3-bookworm
 
-RUN apt-get update && apt-get install -y postgresql-client
+RUN apt-get update && apt-get install -y postgresql-client nodejs
 
 WORKDIR /app
 
