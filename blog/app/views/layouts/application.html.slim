@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Blog
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    meta charset='utf-8'
+    == csrf_meta_tags
+    == csp_meta_tag
+    == stylesheet_link_tag "application", "data-turbo-track": "reload"
+    == stylesheet_link_tag "theme", "data-turbo-track": "reload"
+    link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    == javascript_importmap_tags
+  body
+    .layout-wrapper.layout-content-navbar
+      .layout-container
+        / Menu
+
+        .layout-page
+          = render 'layouts/navbar'
+          .content-wrapper
+            .container-xxl.flex-grow-1.container-p-y
+              / Content
+              == yield

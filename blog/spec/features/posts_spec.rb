@@ -20,7 +20,7 @@ RSpec.describe 'Posts', type: :system do
       visit posts_url
       click_on 'New post'
 
-      fill_in 'Content', with: post.content
+      find_by_id('post_content').click.set(post.content)
       fill_in 'Name', with: post.name
       fill_in 'Title', with: post.title
       click_on 'Create Post'
@@ -33,9 +33,9 @@ RSpec.describe 'Posts', type: :system do
     given(:post) { create(:post) }
     scenario 'updates a post' do
       visit post_url(post)
-      click_on 'Edit this post', match: :first
+      click_on 'Edit', match: :first
 
-      fill_in 'Content', with: 'New content'
+      find_by_id('post_content').click.set('New content')
       fill_in 'Name', with: 'New name'
       fill_in 'Title', with: 'New title'
       click_on 'Update Post'
@@ -49,7 +49,7 @@ RSpec.describe 'Posts', type: :system do
 
     scenario 'destroys a post' do
       visit post_url(post)
-      click_on 'Destroy this post', match: :first
+      click_on 'Delete', match: :first
 
       expect(page).to have_text('Post was successfully destroyed')
     end

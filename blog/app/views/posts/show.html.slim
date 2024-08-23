@@ -1,0 +1,29 @@
+h4.fw-bold.py-3.mb-4
+  span.text-muted.fw-light
+    |> Home/
+  span.text-muted.fw-light
+    = link_to "Posts", posts_path
+    |> /
+  = @post.name
+
+= render "shared/flash"
+
+.row.g-4.mb-5
+  .col-10
+    h2 Details
+  .col-2.text-end
+    = link_to "Back to posts", posts_path, class: "mb-4"
+
+.row
+  .col-md-12
+    .card.h-100
+      .card-header= @post.title
+      .card-body
+        .card-text = @post.content
+        .card-footer
+          small.text-muted
+            |> Last updated on
+            = @post.updated_at.strftime("%B %d, %Y")
+        .card-body
+          = link_to "Edit", edit_post_path(@post), class: "card-link"
+          = link_to "Delete", @post, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "card-link"

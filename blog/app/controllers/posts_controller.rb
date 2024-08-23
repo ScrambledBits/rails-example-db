@@ -6,7 +6,11 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = if params[:search]
+               Post.search_by_title_and_content(params[:search]).with_rich_text_content
+             else
+               Post.all.with_rich_text_content
+             end
   end
 
   # GET /posts/1 or /posts/1.json
