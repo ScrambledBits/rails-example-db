@@ -27,4 +27,3 @@ jobs:
         docker build . --file Dockerfile --tag $IMG_NAME --tag $IMG_NAME_LATEST
         docker push $IMG_NAME
         docker push $IMG_NAME_LATEST
-

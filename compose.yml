@@ -8,7 +8,8 @@ services:
       - POSTGRES_USER=RailsUser
       - POSTGRES_DB=rails
   app:
-    image: ghcr.io/scrambledbits/rails-example-main:latest
+    # image: ghcr.io/scrambledbits/rails-example-main:latest
+    build: .
     volumes:
       - appdata:/app
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -20,6 +21,7 @@ services:
       - DB_NAME=rails_production
       - RAILS_ENV=production
       - SECRET_KEY_BASE='MySuperSecureSecretStringHerePlease!'
+      - DB_HOST=db
 volumes:
   dbdata:
   appdata:
