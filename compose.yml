@@ -13,6 +13,8 @@ services:
       - POSTGRES_PASSWORD=SuperPassword
       - POSTGRES_USER=RailsUser
       - POSTGRES_DB=rails
+    networks:
+      - traefik-network
   app1:
     # image: ghcr.io/scrambledbits/rails-example-main:latest
     build: .
@@ -22,8 +24,11 @@ services:
     volumes:
       - appdata:/app
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    ports:
-      - 8080:3000
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.app1.rule=Host(`app1.sb-proxy.local`)'
+      - 'traefik.http.routers.app1.entrypoints=web'
+      - 'traefik.http.services.app1.loadbalancer.server.port=3000'
     environment:
       - DB_PASSWORD=SuperPassword
       - DB_USER=RailsUser
@@ -31,6 +36,8 @@ services:
       - RAILS_ENV=production
       - SECRET_KEY_BASE='MySuperSecureSecretStringHerePlease!'
       - DB_HOST=db
+    networks:
+      - traefik-network
   app2:
     # image: ghcr.io/scrambledbits/rails-example-main:latest
     build: .
@@ -40,8 +47,11 @@ services:
     volumes:
       - appdata:/app
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    ports:
-      - 8081:3000
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.app2.rule=Host(`app2.sb-proxy.local`)'
+      - 'traefik.http.routers.app2.entrypoints=web'
+      - 'traefik.http.services.app2.loadbalancer.server.port=3000'
     environment:
       - DB_PASSWORD=SuperPassword
       - DB_USER=RailsUser
@@ -49,6 +59,8 @@ services:
       - RAILS_ENV=production
       - SECRET_KEY_BASE='MySuperSecureSecretStringHerePlease!'
       - DB_HOST=db
+    networks:
+      - traefik-network
   app3:
     # image: ghcr.io/scrambledbits/rails-example-main:latest
     build: .
@@ -58,8 +70,11 @@ services:
     volumes:
       - appdata:/app
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    ports:
-      - 8082:3000
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.app3.rule=Host(`app3.sb-proxy.local`)'
+      - 'traefik.http.routers.app3.entrypoints=web'
+      - 'traefik.http.services.app3.loadbalancer.server.port=3000'
     environment:
       - DB_PASSWORD=SuperPassword
       - DB_USER=RailsUser
@@ -67,6 +82,14 @@ services:
       - RAILS_ENV=production
       - SECRET_KEY_BASE='MySuperSecureSecretStringHerePlease!'
       - DB_HOST=db
+    networks:
+      - traefik-network
+
 volumes:
   dbdata:
   appdata:
+
+
+networks:
+  traefik-network:
+    external: true
